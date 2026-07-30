@@ -38,6 +38,12 @@ inputs:
 runs:
   using: "composite"
   steps:
+    # Must come first. Every check below reads the workspace, and the
+    # sub-actions that check out for themselves do so partway down the
+    # chain, which left the earlier steps looking at an empty directory.
+    - name: Checkout code
+      uses: p6m7g8-actions/checkout@main
+
     - name: Secrets Check
       uses: p6m7g8-actions/secrets@main
       with:
