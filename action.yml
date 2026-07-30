@@ -22,6 +22,14 @@ inputs:
     description: "Run secrets check (true/false)"
     required: false
     default: "true"
+  # Mirrors the default of secrets@main verbatim on purpose. This value is
+  # always forwarded, so an empty default here would override the
+  # sub-action's default and silently un-skip the lock files.
+  secrets_exclude_files:
+    description: "Regex of paths to skip. Lock files are skipped by default: their hashes are high entropy."
+    required: false
+    default: |-
+      (^|/)(package-lock\.json|pnpm-lock\.yaml|yarn\.lock|uv\.lock|poetry\.lock|Gemfile\.lock|Cargo\.lock|go\.sum)$
   shellcheck:
     description: "Run shellcheck (true/false)"
     required: false
@@ -48,6 +56,7 @@ runs:
       uses: p6m7g8-actions/secrets@main
       with:
         secrets: ${{ inputs.secrets }}
+        exclude_files: ${{ inputs.secrets_exclude_files }}
 
     - name: GitHub Workflow Lint
       uses: p6m7g8-actions/p6-gh-action-linter@main
