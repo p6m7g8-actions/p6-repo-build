@@ -50,37 +50,37 @@ runs:
     # sub-actions that check out for themselves do so partway down the
     # chain, which left the earlier steps looking at an empty directory.
     - name: Checkout code
-      uses: p6m7g8-actions/checkout@main
+      uses: p6m7g8-actions/gh-repo-checkout@main
 
     - name: Secrets Check
-      uses: p6m7g8-actions/secrets@main
+      uses: p6m7g8-actions/p6-secrets-scan@main
       with:
         secrets: ${{ inputs.secrets }}
         exclude_files: ${{ inputs.secrets_exclude_files }}
 
     - name: GitHub Workflow Lint
-      uses: p6m7g8-actions/p6-gh-action-linter@main
+      uses: p6m7g8-actions/p6-action-lint@main
       with:
         actionlint: ${{ inputs.actionlint }}
         gh_token: ${{ inputs.gh_token }}
 
     - name: Markdown Lint
-      uses: p6m7g8-actions/p6-gh-markdown-linter@main
+      uses: p6m7g8-actions/p6-markdown-lint@main
       with:
         markdownlint: ${{ inputs.markdownlint }}
 
     - name: YAML Lint
-      uses: p6m7g8-actions/yamllint@main
+      uses: p6m7g8-actions/p6-yaml-lint@main
       with:
         yamllint: ${{ inputs.yamllint }}
 
     - name: ShellCheck
-      uses: p6m7g8-actions/shellcheck@main
+      uses: p6m7g8-actions/p6-shell-lint@main
       with:
         shellcheck: ${{ inputs.shellcheck }}
         ignore_paths: ${{ inputs.shellcheck_ignore_paths }}
 
     - name: Cspell
-      uses: p6m7g8-actions/cspell@main
+      uses: p6m7g8-actions/p6-spelling-lint@main
       with:
         cspell: ${{ inputs.cspell }}
