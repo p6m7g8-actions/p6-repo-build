@@ -7,7 +7,7 @@
 
 ```yaml
       - name: P6- build
-        uses: p6m7g8-actions/p6-build@main
+        uses: p6m7g8-actions/p6-repo-build@main
 ```
 
 The composite checks out the workspace itself, as its first step, so the calling
